@@ -1,0 +1,31 @@
+.explore-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #FAFAFA;
+}
+
+.explore-tag-header {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #EBEBEB;
+  padding: 16px 32px;
+  font-size: 0.95rem;
+  color: #737373;
+}
+
+.explore-tag-header span {
+  color: #D6006E;
+  font-weight: 700;
+}
+
+.explore-feed {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.explore-status {
+  text-align: center;
+  color: #737373;
+  padding: 60px 0;
+}

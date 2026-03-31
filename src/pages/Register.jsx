@@ -1,0 +1,81 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import "../styles/Login.css";
+
+function Register() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", form);
+      login(res.data.user, res.data.token);
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  return (
+    <div className="auth-page">
+      <p className="auth-logo">Inspira</p>
+      <div className="auth-card">
+        <h1 className="auth-title">Join Inspira</h1>
+        <p className="auth-subtitle">Find your inspiration</p>
+
+        {error && <p className="auth-error">{error}</p>}
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="auth-field">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="your username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="auth-field">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="auth-field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="auth-btn">Create account</button>
+        </form>
+
+        <p className="auth-switch">
+          Already have an account?{" "}
+          <Link to="/login">Log in</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default Register;
