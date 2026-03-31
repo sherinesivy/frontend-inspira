@@ -7,7 +7,7 @@ import "../styles/Profile.css";
 
 function Profile() {
   const { id } = useParams();
-  const { user, token, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
