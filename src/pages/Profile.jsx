@@ -21,7 +21,7 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const postsRes = await axios.get("http://localhost:5000/api/posts");
+        const postsRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts`);
         const userPosts = postsRes.data.filter(
           (p) => p.createdBy?._id === id || p.createdBy === id
         );
