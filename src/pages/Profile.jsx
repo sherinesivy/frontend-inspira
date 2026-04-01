@@ -14,7 +14,7 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [cropSrc, setCropSrc] = useState(null);
-  const [croppedBlob, setCroppedBlob] = useState(null);
+  const [setCroppedBlob] = useState(null);
   const imgRef = useRef(null);
   const canvasRef = useRef(null);
 
