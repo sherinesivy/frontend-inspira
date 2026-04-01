@@ -15,7 +15,7 @@ function Explore() {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/posts${tag ? `?tag=${tag}` : ""}`
+          `${import.meta.env.VITE_API_URL}/api/posts${tag ? `?tag=${tag}` : ""}`
         );
         setPosts(res.data);
       } catch (err) {

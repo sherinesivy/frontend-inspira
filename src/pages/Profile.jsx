@@ -17,8 +17,8 @@ function Profile() {
     const fetchData = async () => {
       try {
         const [userRes, postsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/users/${id}`),
-          axios.get(`http://localhost:5000/api/posts?user=${id}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/users/${id}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/posts?user=${id}`),
         ]);
         setProfile(userRes.data);
         setPosts(postsRes.data);

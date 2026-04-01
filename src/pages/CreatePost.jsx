@@ -37,7 +37,7 @@ function CreatePost() {
       formData.append("title", form.title);
       formData.append("description", form.description);
       formData.append("tags", form.tags);
-      await axios.post("http://localhost:5000/api/posts", formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/posts`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

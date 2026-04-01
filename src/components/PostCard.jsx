@@ -11,7 +11,7 @@ function PostCard({ post, onLike }) {
     if (!user) return;
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/posts/${post._id}/like`,
+        `${import.meta.env.VITE_API_URL}/api/posts/${post._id}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

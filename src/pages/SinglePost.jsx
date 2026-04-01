@@ -18,7 +18,7 @@ function SinglePost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts/${id}`);
         setPost(res.data);
         setForm({
           title: res.data.title,
@@ -38,7 +38,7 @@ function SinglePost() {
     if (!user) return navigate("/login");
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/posts/${id}/like`,
+        `${import.meta.env.VITE_API_URL}/api/posts/${id}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -51,7 +51,7 @@ function SinglePost() {
   const handleDelete = async () => {
     if (!window.confirm("Delete this pin?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/");
@@ -64,7 +64,7 @@ function SinglePost() {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/posts/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/posts/${id}`,
         { ...form },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
     const formData = new FormData();
     formData.append("profilePic", file);
     const res = await axios.put(
-      "http://localhost:5000/api/auth/profile-pic",
+      `${import.meta.env.VITE_API_URL}/api/auth/profile-pic`,
       formData,
       { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } }
     );
