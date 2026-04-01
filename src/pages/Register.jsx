@@ -1,27 +1,42 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext";
 import "../styles/Login.css";
 
 function Register() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, form);
-      login(res.data.user, res.data.token);
-      navigate("/");
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, form);
+      setSuccess(true);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     }
   };
+
+  if (success) {
+    return (
+      <div className="auth-page">
+        <p className="auth-logo">Inspira</p>
+        <div className="auth-card" style={{ textAlign: "center" }}>
+          <div style={{ fontSize: "3rem", marginBottom: "16px" }}>📩</div>
+          <h1 className="auth-title">Check your inbox!</h1>
+          <p className="auth-subtitle" style={{ marginBottom: "28px" }}>
+            We sent a verification link to <strong>{form.email}</strong>. Click it to activate your account.
+          </p>
+          <Link to="/login" className="auth-btn" style={{ display: "inline-block", textDecoration: "none", borderRadius: "999px" }}>
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="auth-page">
@@ -68,7 +83,30 @@ function Register() {
           </div>
           <button type="submit" className="auth-btn">Create account</button>
         </form>
+<div style={{ margin: "20px 0", textAlign: "center", color: "#AAAAAA", fontSize: "0.85rem" }}>or</div>
 
+        
+        <a  href={`${import.meta.env.VITE_API_URL}/api/auth/google`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            background: "white",
+            border: "1.5px solid #EBEBEB",
+            borderRadius: "12px",
+            padding: "13px",
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            color: "#1A1A1A",
+            textDecoration: "none",
+            transition: "border-color 0.2s",
+            marginBottom: "8px",
+          }}
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" alt="Google" />
+          Continue with Google
+        </a>
         <p className="auth-switch">
           Already have an account?{" "}
           <Link to="/login">Log in</Link>
